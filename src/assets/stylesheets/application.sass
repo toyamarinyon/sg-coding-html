@@ -15,17 +15,20 @@ $sub-color: #dfeba6
     font-weight: bold
   .nav > li > a
     padding-left: 0
-    &:hover
+    color: #fff
+    &:hover,&:visited,&:focus
       background-color: transparent
     &:before
       content: "●"
       margin-left: 8px
       margin-right: 8px
       color: #fff
-  a
-    color: #fff
   article
     h1
       border: solid 2px #aaa
       padding: 6px 12px
     background-color: #fff
+  .page-scroller
+    position: fixed
+    bottom: 3%
+    right: 3%
