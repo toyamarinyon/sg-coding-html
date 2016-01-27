@@ -8,6 +8,7 @@ import jade from 'gulp-jade'
 import sass from 'gulp-sass'
 import notify from 'gulp-notify'
 import connect from 'gulp-connect'
+import eslint from 'gulp-eslint'
 
 const compile = () => {
   const props = {
@@ -57,6 +58,7 @@ gulp.task('sass', () => {
 })
 gulp.task('watch', () => {
   gulp.watch(['./tmp/*.html'], ['html'])
+  gulp.watch(['./src/assets/javascripts/app.js'], ['lint'])
   gulp.watch(['./src/views/**/*.jade'], ['jade'])
   gulp.watch(['./src/assets/stylesheets/**/*.sass'], ['sass'])
 })
@@ -66,5 +68,11 @@ gulp.task('jade', () =>{
     .pipe(gulp.dest('dist'))
     .pipe(connect.reload())
 })
+gulp.task('lint', () => {
+  gulp.src('./src/assets/javascripts/app.js')
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError())
+})
 gulp.task('build',['babel','jade','sass'])
-gulp.task('development', ['connect','enable-watch-mode', 'build', 'watch'])
+gulp.task('development', ['connect','enable-watch-mode','lint','build','watch'])
