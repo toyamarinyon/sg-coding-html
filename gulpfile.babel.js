@@ -35,7 +35,7 @@ const compile = () => {
 
 let watching = false
 gulp.task('enable-watch-mode', () => watching = true)
-gulp.task('build', () => compile())
+gulp.task('babel', () => compile())
 gulp.task('connect', () => connect.server({livereload: true}))
 gulp.task('html', () => {
   gulp.src('./tmp/*.html')
@@ -66,4 +66,5 @@ gulp.task('jade', () =>{
     .pipe(gulp.dest('dist'))
     .pipe(connect.reload())
 })
+gulp.task('build',['babel','jade','sass'])
 gulp.task('development', ['connect','enable-watch-mode', 'build', 'watch'])
